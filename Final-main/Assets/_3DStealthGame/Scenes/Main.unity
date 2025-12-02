@@ -2030,7 +2030,52 @@ PrefabInstance:
     - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
         type: 3}
       propertyPath: walkSpeed
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: uiDocument
+      value: 
+      objectReference: {fileID: 1931633169}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: MoveAction.m_ExpectedControlType
+      value: Vector2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_ExpectedControlType
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 2fe77d96-804c-494b-9015-b000d5fad942
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Keyboard>/leftShift
+      objectReference: {fileID: 0}
+    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
+        type: 3}
+      propertyPath: SprintAction.m_SingletonActionBindings.Array.data[0].m_Action
+      value: Sprint
       objectReference: {fileID: 0}
     - target: {fileID: 7721738094691226404, guid: b24c11d6f6f48894ea8b34e44ab5063f,
         type: 3}

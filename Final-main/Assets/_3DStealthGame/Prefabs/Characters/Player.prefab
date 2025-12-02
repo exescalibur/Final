@@ -188,8 +188,21 @@ MonoBehaviour:
       m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  SprintAction:
+    m_Name: Sprint
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5014cf23-06ec-42ad-9809-467fcc47c383
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   walkSpeed: 1
   turnSpeed: 20
+  sprintSpeed: 3
+  sprintDuration: 2.5
+  sprintCooldown: 4
+  sprintIcon: {fileID: 0}
 --- !u!95 &5929830965623286073
 Animator:
   serializedVersion: 7
