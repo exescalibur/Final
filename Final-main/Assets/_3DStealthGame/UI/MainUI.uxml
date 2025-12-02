@@ -1,0 +1,11 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement name="EndScreen" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: none; background-color: rgb(0, 0, 0); opacity: 0;">
+        <engine:VisualElement name="Visual" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_3DStealthGame/Art/Textures/UI/Won%20Screen.png?fileID=21300000&amp;guid=3db33661dbbdaaa49ba54408899d20cb&amp;type=3#Won Screen&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    </engine:VisualElement>
+    <engine:VisualElement name="CaughtScreen" style="flex-grow: 1; top: 0; left: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); opacity: 0;">
+        <engine:VisualElement name="Visual" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_3DStealthGame/Art/Textures/UI/Caught%20Screen.png?fileID=21300000&amp;guid=2942309166a418a4c8ac2d569a8b14b9&amp;type=3#Caught Screen&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    </engine:VisualElement>
+    <engine:VisualElement name="SprintIcon" style="flex-grow: 1; width: 30px; height: 30px; background-color: rgb(255, 255, 255); position: absolute; top: 10px; left: 10px; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-right-radius: 12px; border-bottom-left-radius: 12px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);">
+        <engine:VisualElement name="SprintIconImage" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_3DStealthGame/Art/sprite/Adobe%20Express%20-%20file%20(15).png?fileID=21300000&amp;guid=f8192208e80be4372a435c7d9b6f67de&amp;type=3#Adobe Express - file (15)&quot;);" />
+    </engine:VisualElement>
+</engine:UXML>
