@@ -2044,11 +2044,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
         type: 3}
-      propertyPath: unfreezeKey
-      value: 32
-      objectReference: {fileID: 0}
-    - target: {fileID: 5245568366496229930, guid: b24c11d6f6f48894ea8b34e44ab5063f,
-        type: 3}
       propertyPath: SprintAction.m_Type
       value: 1
       objectReference: {fileID: 0}
