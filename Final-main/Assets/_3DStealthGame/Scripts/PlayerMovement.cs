@@ -21,19 +21,28 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("UI Toolkit")]
     public UIDocument uiDocument;          // Drag your UI Document here
-    private VisualElement sprintIcon;       // UI square to recolor
+    private VisualElement sprintIcon;      // Border color shows sprint state
 
-    Animator m_Animator;
     Rigidbody m_Rigidbody;
-
+    Animator m_Animator;
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
 
-    // Internal sprint logic
-    private float sprintTimer = 0f;
-    private float cooldownTimer = 0f;
-    private bool isSprinting = false;
-    private bool canSprint = true;
+    // Sprint internal state
+    float sprintTimer = 0f;
+    float cooldownTimer = 0f;
+    bool isSprinting = false;
+    bool canSprint = true;
+
+    [Header("Fear Freeze (Minor Mod)")]
+    public float minFreezeInterval = 10f;      // minimum seconds between freezes
+    public float maxFreezeInterval = 20f;      // maximum seconds between freezes
+    public int requiredMashCount = 5;          // presses needed to unfreeze
+    public KeyCode unfreezeKey = KeyCode.E;    // key to mash
+
+    bool isFrozen = false;
+    int mashCount = 0;
+    float nextFreezeTime = 0f;
 
     void Start()
     {
@@ -43,13 +52,35 @@ public class PlayerMovement : MonoBehaviour
         MoveAction.Enable();
         SprintAction.Enable();
 
-        // FIND SprintIcon inside UI Toolkit
-        sprintIcon = uiDocument.rootVisualElement.Q<VisualElement>("SprintIcon");
+        if (uiDocument != null)
+        {
+            sprintIcon = uiDocument.rootVisualElement.Q<VisualElement>("SprintIcon");
+        }
+
+        ScheduleNextFreeze();
+    }
+
+    void ScheduleNextFreeze()
+    {
+        nextFreezeTime = Time.time + Random.Range(minFreezeInterval, maxFreezeInterval);
+    }
+
+    void Update()
+    {
+        HandleFreezeLogic();
     }
 
     void FixedUpdate()
     {
-        HandleSprintLogic();   // Major mod logic
+        HandleSprintLogic();
+
+        // Block all movement while frozen
+        if (isFrozen)
+        {
+            m_Movement = Vector3.zero;
+            m_Animator.SetBool("IsWalking", false);
+            return;
+        }
 
         Vector2 input = MoveAction.ReadValue<Vector2>();
         float horizontal = input.x;
@@ -75,9 +106,9 @@ public class PlayerMovement : MonoBehaviour
         // Choose speed
         float currentSpeed = walkSpeed;
 
-        if (isSprinting && canSprint)
+        if (isSprinting && canSprint && !isFrozen)
         {
-            currentSpeed = sprintSpeed;  // Minor + major mod
+            currentSpeed = sprintSpeed;
         }
 
         // Move
@@ -91,23 +122,28 @@ public class PlayerMovement : MonoBehaviour
         m_Animator.SetBool("IsWalking", isWalking);
     }
 
-    // --------------------------------------------------------------
-    //                    SPRINT LOGIC (MAJOR MOD)
-    // --------------------------------------------------------------
+    // ---------------------- SPRINT (MAJOR MOD) ----------------------
     void HandleSprintLogic()
     {
-        // Start sprint when pressing Shift AND sprint is ready
+        // No sprint while frozen
+        if (isFrozen)
+        {
+            isSprinting = false;
+            UpdateSprintIcon();
+            return;
+        }
+
+        // Start sprint
         if (SprintAction.IsPressed() && canSprint && !isSprinting)
         {
             isSprinting = true;
             sprintTimer = sprintDuration;
         }
 
-        // Sprint active timer
+        // Sprint timer
         if (isSprinting)
         {
             sprintTimer -= Time.deltaTime;
-
             if (sprintTimer <= 0f)
             {
                 isSprinting = false;
@@ -120,19 +156,15 @@ public class PlayerMovement : MonoBehaviour
         if (!canSprint && !isSprinting)
         {
             cooldownTimer -= Time.deltaTime;
-
             if (cooldownTimer <= 0f)
             {
                 canSprint = true;
             }
         }
 
-        UpdateSprintIcon(); // UI Toolkit recolor
+        UpdateSprintIcon();
     }
 
-    // --------------------------------------------------------------
-    //                UI TOOLKIT ICON COLOR UPDATE
-    // --------------------------------------------------------------
     void UpdateSprintIcon()
     {
         if (sprintIcon == null) return;
@@ -140,11 +172,11 @@ public class PlayerMovement : MonoBehaviour
         Color borderColor;
 
         if (isSprinting)
-            borderColor = Color.green;        // sprint active
+            borderColor = Color.green;      // sprinting
         else if (!canSprint)
-            borderColor = Color.red;          // cooling down
+            borderColor = Color.red;        // cooldown
         else
-            borderColor = Color.white;        // ready
+            borderColor = Color.white;      // ready
 
         sprintIcon.style.borderTopColor = borderColor;
         sprintIcon.style.borderRightColor = borderColor;
@@ -152,4 +184,32 @@ public class PlayerMovement : MonoBehaviour
         sprintIcon.style.borderLeftColor = borderColor;
     }
 
+    // ---------------------- FEAR FREEZE (MINOR MOD) ----------------------
+    void HandleFreezeLogic()
+    {
+        // Already frozen: wait for mash input
+        if (isFrozen)
+        {
+            if (Input.GetKeyDown(unfreezeKey))
+            {
+                mashCount++;
+
+                if (mashCount >= requiredMashCount)
+                {
+                    isFrozen = false;
+                    mashCount = 0;
+                    ScheduleNextFreeze();
+                }
+            }
+            return;
+        }
+
+        // Not frozen: check if it's time to trigger freeze
+        if (Time.time >= nextFreezeTime)
+        {
+            isFrozen = true;
+            mashCount = 0;
+            // You can add sound / VFX here if you want
+        }
+    }
 }
